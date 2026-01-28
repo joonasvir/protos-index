@@ -1,0 +1,10 @@
+[
+  {
+    "id": "fonts-directory",
+    "name": "Fonts Directory",
+    "description": "A curated font library for previewing and exploring typefaces across serif, sans-serif, and monospace categories.",
+    "subdomain": "fonts",
+    "color": "#111111",
+    "accent": "#ffffff"
+  }
+]

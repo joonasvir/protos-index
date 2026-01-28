@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects</title>
+  <title>Protos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,7 +61,6 @@
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 16px;
-      background: #111;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -83,39 +82,141 @@
       color: #666;
       line-height: 1.5;
     }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #999;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Projects</h1>
+      <h1>Protos</h1>
     </header>
 
-    <div class="projects">
-      <a href="../Fonts%20Directory/index.html" class="project-card">
-        <div class="project-cover">
-          <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#111"/>
-            <text x="40" y="100" font-family="Georgia, serif" font-size="72" font-weight="400" fill="#fff">Aa</text>
-            <text x="140" y="100" font-family="Inter, sans-serif" font-size="72" font-weight="400" fill="#fff" opacity="0.6">Aa</text>
-            <text x="240" y="100" font-family="monospace" font-size="72" font-weight="400" fill="#fff" opacity="0.3">Aa</text>
-            <rect x="40" y="140" width="120" height="3" rx="1.5" fill="#fff" opacity="0.8"/>
-            <rect x="40" y="160" width="200" height="3" rx="1.5" fill="#fff" opacity="0.4"/>
-            <rect x="40" y="180" width="160" height="3" rx="1.5" fill="#fff" opacity="0.2"/>
-            <rect x="40" y="220" width="60" height="24" rx="12" fill="#333"/>
-            <text x="56" y="237" font-family="Inter, sans-serif" font-size="11" fill="#888">Serif</text>
-            <rect x="112" y="220" width="80" height="24" rx="12" fill="#333"/>
-            <text x="123" y="237" font-family="Inter, sans-serif" font-size="11" fill="#888">Sans Serif</text>
-            <rect x="204" y="220" width="60" height="24" rx="12" fill="#333"/>
-            <text x="218" y="237" font-family="Inter, sans-serif" font-size="11" fill="#888">Mono</text>
-          </svg>
-        </div>
-        <div class="project-info">
-          <h2>Fonts Directory</h2>
-          <p>A curated font library for previewing and exploring typefaces across serif, sans-serif, and monospace categories.</p>
-        </div>
-      </a>
+    <div class="projects" id="projects">
+      <div class="empty-state">Loading projects...</div>
     </div>
   </div>
+
+  <script>
+    // Generate a unique color palette from project id
+    function generateColors(id) {
+      let hash = 0;
+      for (let i = 0; i < id.length; i++) {
+        hash = id.charCodeAt(i) + ((hash << 5) - hash);
+      }
+
+      const palettes = [
+        { bg: '#111111', accent: '#ffffff', secondary: '#333333' },
+        { bg: '#1a1a2e', accent: '#eee', secondary: '#16213e' },
+        { bg: '#0f0f0f', accent: '#f5f5f5', secondary: '#1a1a1a' },
+        { bg: '#1b1b1b', accent: '#e8e8e8', secondary: '#2d2d2d' },
+        { bg: '#0d1117', accent: '#f0f6fc', secondary: '#161b22' },
+        { bg: '#18181b', accent: '#fafafa', secondary: '#27272a' },
+        { bg: '#020617', accent: '#f8fafc', secondary: '#0f172a' },
+        { bg: '#171717', accent: '#ededed', secondary: '#262626' },
+      ];
+
+      return palettes[Math.abs(hash) % palettes.length];
+    }
+
+    // Generate SVG cover based on project
+    function generateCover(project) {
+      const colors = project.color ?
+        { bg: project.color, accent: project.accent || '#ffffff', secondary: project.color } :
+        generateColors(project.id);
+
+      const initials = project.name
+        .split(' ')
+        .map(w => w[0])
+        .join('')
+        .substring(0, 2)
+        .toUpperCase();
+
+      // Generate unique pattern based on id
+      let hash = 0;
+      for (let i = 0; i < project.id.length; i++) {
+        hash = project.id.charCodeAt(i) + ((hash << 5) - hash);
+      }
+
+      const patternType = Math.abs(hash) % 4;
+      let pattern = '';
+
+      if (patternType === 0) {
+        // Dots pattern
+        for (let i = 0; i < 6; i++) {
+          for (let j = 0; j < 5; j++) {
+            const opacity = ((i + j) % 3 + 1) * 0.1;
+            pattern += `<circle cx="${60 + i * 60}" cy="${180 + j * 30}" r="3" fill="${colors.accent}" opacity="${opacity}"/>`;
+          }
+        }
+      } else if (patternType === 1) {
+        // Lines pattern
+        for (let i = 0; i < 5; i++) {
+          const width = 40 + (hash + i * 17) % 120;
+          const opacity = 0.1 + (i % 3) * 0.1;
+          pattern += `<rect x="40" y="${160 + i * 24}" width="${width}" height="2" rx="1" fill="${colors.accent}" opacity="${opacity}"/>`;
+        }
+      } else if (patternType === 2) {
+        // Grid pattern
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 3; j++) {
+            const opacity = 0.05 + ((i * j) % 4) * 0.05;
+            pattern += `<rect x="${40 + i * 80}" y="${160 + j * 40}" width="60" height="28" rx="4" fill="${colors.accent}" opacity="${opacity}"/>`;
+          }
+        }
+      } else {
+        // Bars pattern
+        for (let i = 0; i < 4; i++) {
+          const height = 20 + (hash + i * 23) % 60;
+          const opacity = 0.15 + (i % 3) * 0.1;
+          pattern += `<rect x="${60 + i * 80}" y="${280 - height}" width="50" height="${height}" rx="4" fill="${colors.accent}" opacity="${opacity}"/>`;
+        }
+      }
+
+      return `
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="${colors.bg}"/>
+          <text x="40" y="100" font-family="Inter, sans-serif" font-size="64" font-weight="600" fill="${colors.accent}">${initials}</text>
+          ${pattern}
+        </svg>
+      `;
+    }
+
+    // Render projects
+    async function loadProjects() {
+      try {
+        const response = await fetch('./projects.json');
+        const projects = await response.json();
+
+        const container = document.getElementById('projects');
+
+        if (projects.length === 0) {
+          container.innerHTML = '<div class="empty-state">No projects yet</div>';
+          return;
+        }
+
+        container.innerHTML = projects.map(project => `
+          <a href="https://${project.subdomain}.joonasvirtanen.com" class="project-card" target="_blank">
+            <div class="project-cover">
+              ${generateCover(project)}
+            </div>
+            <div class="project-info">
+              <h2>${project.name}</h2>
+              <p>${project.description}</p>
+            </div>
+          </a>
+        `).join('');
+      } catch (error) {
+        console.error('Failed to load projects:', error);
+        document.getElementById('projects').innerHTML = '<div class="empty-state">Failed to load projects</div>';
+      }
+    }
+
+    loadProjects();
+  </script>
 </body>
 </html>
