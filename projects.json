@@ -6,5 +6,13 @@
     "subdomain": "fonts",
     "color": "#111111",
     "accent": "#ffffff"
+  },
+  {
+    "id": "for-you-collections",
+    "name": "For You Collections",
+    "description": "Personalized recommendation cards generated from persona profiles and memories.",
+    "subdomain": "for-you",
+    "color": "#0a0a0a",
+    "accent": "#ffffff"
   }
 ]
