@@ -35,7 +35,7 @@
     "id": "social-preview",
     "name": "Social Preview",
     "description": "Create realistic social media post mockups for Twitter/X with customizable content, media, and engagement metrics.",
-    "subdomain": "social-preview",
+    "subdomain": "social",
     "color": "#000000",
     "accent": "#1d9bf0"
   }
