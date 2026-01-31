@@ -14,5 +14,21 @@
     "subdomain": "for-you",
     "color": "#0a0a0a",
     "accent": "#ffffff"
+  },
+  {
+    "id": "explore-packs",
+    "name": "Explore Packs",
+    "description": "AI-generated app collection cards with personalized recommendations and dynamic image generation.",
+    "subdomain": "explore-packs",
+    "color": "#1a1a2e",
+    "accent": "#667eea"
+  },
+  {
+    "id": "pinned",
+    "name": "Pinned",
+    "description": "App pinning prototype with drag-and-drop and long-press context menu for Wabi.",
+    "subdomain": "pinned",
+    "color": "#1a1a2e",
+    "accent": "#FF9500"
   }
 ]
