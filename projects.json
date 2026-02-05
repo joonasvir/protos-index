@@ -38,5 +38,13 @@
     "subdomain": "postpreview",
     "color": "#000000",
     "accent": "#1d9bf0"
+  },
+  {
+    "id": "wabi-collabs",
+    "name": "Wabi Collabs",
+    "description": "A catalogue of artist collaborations for Wabi, featuring work from visual artists and creative coders.",
+    "subdomain": "wabicollabs",
+    "color": "#ffffff",
+    "accent": "#000000"
   }
 ]
