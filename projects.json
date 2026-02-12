@@ -46,5 +46,13 @@
     "subdomain": "wabicollabs",
     "color": "#ffffff",
     "accent": "#000000"
+  },
+  {
+    "id": "loaders",
+    "name": "Loaders",
+    "description": "A playground for previewing loader animations inside a phone mockup with exportable React Native code.",
+    "subdomain": "loaders",
+    "color": "#0a0a0a",
+    "accent": "#666666"
   }
 ]
